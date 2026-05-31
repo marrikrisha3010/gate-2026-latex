@@ -13,3 +13,7 @@ This project recreates the GATE 2026 Computer Science question paper using LaTeX
 - gatepaper.tex : Main LaTeX source
 - gatepaper.pdf : Compiled PDF
 - figures/ : Extracted images used in the document
+
+## Output
+
+- [View PDF](gatepaper.pdf)
