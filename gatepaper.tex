@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[14pt]{article}
 
 \usepackage[a4paper, margin=1in]{geometry}
 \usepackage{array}
@@ -9,6 +9,9 @@
 \usepackage{amssymb, amsmath, amsfonts}
 \usepackage{enumitem}
 \usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,automata,positioning}
+\renewcommand{\arraystretch}{1.25}
 
 \begin{document}
 
@@ -63,30 +66,201 @@ Fill the blank by choosing a word with a meaning similar to the words above.
 \hline
 
 \textbf{Q.2} &
-A black square PQRS has been cut into two parts.
-
-\vspace{0.2cm}
-
-\begin{center}
-\includegraphics[width=0.4\textwidth]{figures/images-007.png}
-\end{center}
+A black square PQRS has been cut into two parts. One part of it is shown in
+Panel I. Which one of the shapes in Panel II is the other part?
 \\
-
 \hline
 
-(A) & (i) \\
+&
+\begin{center}
+
+\begin{tikzpicture}[scale=0.75,transform shape]
+
+% black block
+\newcommand{\blk}[2]{
+\fill (#1,#2) rectangle ++(0.45,0.45);
+}
+
+% ================= PANEL I =================
+
+\begin{scope}
+
+\node at (1.5,3.4){Panel I};
+
+\def\s{0.45}
+
+% -------- black square PQRS remaining part --------
+
+% Row 5 (top)
+\foreach \x in {0,1,2,3,4,5}{
+    \fill (\x*\s,5*\s) rectangle ++(\s,\s);
+}
+
+% Row 4
+\foreach \x in {0,3}{
+    \fill (\x*\s,4*\s) rectangle ++(\s,\s);
+}
+
+% Row 3
+\foreach \x in {0,1,2}{
+    \fill (\x*\s,3*\s) rectangle ++(\s,\s);
+}
+
+% Row 2
+\foreach \x in {0,4,5}{
+    \fill (\x*\s,2*\s) rectangle ++(\s,\s);
+}
+
+% Row 1
+\foreach \x in {0,4,5}{
+    \fill (\x*\s,1*\s) rectangle ++(\s,\s);
+}
+
+% Row 0 (bottom)
+\foreach \x in {0,1,2,3,4,5}{
+    \fill (\x*\s,0) rectangle ++(\s,\s);
+}
+
+
+% labels
+\node at (-0.12,6*\s+0.1){S};
+\node at (6*\s+0.12,6*\s+0.1){R};
+
+\node at (-0.12,-0.15){P};
+\node at (6*\s+0.12,-0.15){Q};
+
+\end{scope}
+
+% ================= PANEL II =================
+
+\begin{scope}[xshift=5cm]
+
+\node at (2.5,3.6){Panel II};
+
+
+% -------- option i --------
+
+% top
+\blk{0}{2.4}
+\blk{1.35}{2.4}
+\blk{1.8}{2.4}
+
+% middle
+\blk{0}{1.95}
+\blk{0.45}{1.95}
+\blk{0.9}{1.95}
+\blk{1.35}{1.95}
+
+% stem
+\blk{0.9}{1.5}
+
+% bottom
+\blk{0}{1.05}
+\blk{0.45}{1.05}
+\blk{0.9}{1.05}
+
+\node at (1,0.65){(i)};
+
+
+
+% -------- option ii --------
+
+\begin{scope}[xshift=3cm]
+
+\blk{0}{2.4}
+\blk{1.35}{2.4}
+\blk{1.8}{2.4}
+
+\blk{0}{1.95}
+\blk{0.45}{1.95}
+\blk{0.9}{1.95}
+\blk{1.35}{1.95}
+
+\blk{1.35}{1.5}
+
+\blk{0.45}{1.05}
+\blk{0.9}{1.05}
+\blk{1.35}{1.05}
+
+\node at (1,0.65){(ii)};
+
+\end{scope}
+
+
+
+% dotted lines
+\draw[dashed](-0.4,0.45)--(5.5,0.45);
+\draw[dashed](2.7,-1.8)--(2.7,3.4);
+
+
+
+% -------- option iii --------
+
+\begin{scope}[yshift=-3cm]
+
+\blk{0}{2.4}
+\blk{1.35}{2.4}
+\blk{1.8}{2.4}
+
+\blk{0}{1.95}
+\blk{0.45}{1.95}
+\blk{0.9}{1.95}
+
+\blk{0.9}{1.5}
+
+\blk{0}{1.05}
+\blk{0.45}{1.05}
+\blk{0.9}{1.05}
+
+\node at (1,0.65){(iii)};
+
+\end{scope}
+
+
+
+% -------- option iv --------
+
+\begin{scope}[xshift=3cm,yshift=-3cm]
+
+\blk{0}{2.4}
+\blk{1.35}{2.4}
+\blk{1.8}{2.4}
+
+\blk{0}{1.95}
+\blk{0.45}{1.95}
+\blk{0.9}{1.95}
+\blk{1.35}{1.95}
+
+\blk{1.35}{1.5}
+
+\blk{0.9}{1.05}
+\blk{1.35}{1.05}
+
+\node at (1,0.65){(iv)};
+
+\end{scope}
+
+
+\end{scope}
+
+\end{tikzpicture}
+
+\end{center}
+
+\\
 \hline
 
-(B) & (ii) \\
+(A) & (i)\\
 \hline
-
-(C) & (iii) \\
+(B) & (ii)\\
 \hline
-
-(D) & (iv) \\
+(C) & (iii)\\
+\hline
+(D) & (iv)\\
 \hline
 
 \end{tabular}
+
 \vspace{0.5cm}
 
 \renewcommand{\arraystretch}{1.8}
@@ -189,23 +363,203 @@ Choose the P and Q combination from the options below to form a meaningful analo
 \textbf{Q.7} &
 Two tiles are missing in Panel I. Which one of the options in Panel II is the appropriate choice for the missing tiles?
 \\
-
 \hline
 
-\multicolumn{2}{|c|}{
-\includegraphics[width=0.75\textwidth]{figures/images-021.png}
+&
+\begin{center}
+
+\begin{tikzpicture}[scale=0.8,transform shape]
+
+% ---------- commands ----------
+
+\newcommand{\bdot}[2]{
+\fill (#1,#2) circle (0.07);
+}
+
+\newcommand{\tile}[3]{
+\draw (#1,#2) rectangle ++(1.2,1.2);
+
+\foreach \x in {0.3,0.6,0.9}{
+\foreach \y in {0.3,0.6,0.9}{
+\draw (#1+\x,#2+\y) circle (0.055);
+}}
+
+#3
+}
+
+
+% ================= PANEL I =================
+
+\begin{scope}
+
+\node at (1.8,4.6){Panel I};
+
+% top row
+\tile{0}{3}{
+\bdot{0.6}{3.3}
+\bdot{0.9}{3.3}
+\bdot{0.3}{3.6}
+\bdot{0.6}{3.6}
+\bdot{0.9}{3.6}
+\bdot{0.6}{3.9}
+\bdot{0.9}{3.9}
+}
+
+\tile{1.2}{3}{}
+
+\tile{2.4}{3}{
+\bdot{3}{3.3}
+\bdot{3.3}{3.3}
+\bdot{3}{3.6}
+\bdot{3.3}{3.6}
+\bdot{3.3}{3.9}
+}
+
+
+% middle row
+
+\tile{0}{1.8}{
+\bdot{0.9}{2.1}
+\bdot{0.9}{2.4}
+}
+
+\tile{1.2}{1.8}{
+\bdot{2.1}{2.1}
+\bdot{1.8}{2.1}
+\bdot{2.1}{2.4}
+}
+
+\draw[dashed] (2.4,1.8) rectangle ++(1.2,1.2);
+\node at (3,2.4){\Large ?};
+
+
+% bottom row
+
+\tile{0}{0.6}{
+\bdot{0.9}{0.9}
+\bdot{0.6}{0.9}
+}
+
+\tile{1.2}{0.6}{
+\bdot{1.5}{0.9}
+\bdot{1.8}{0.9}
+\bdot{2.1}{0.9}
+\bdot{1.5}{1.2}
+\bdot{2.1}{1.2}
+}
+
+\end{scope}
+
+
+% solid divider
+\draw[line width=0.8pt] (4.8,0)--(4.8,5);
+
+
+
+% ================= PANEL II =================
+
+\begin{scope}[xshift=6.3cm]
+
+\node at (2.5,4.8){Panel II};
+
+
+% helper stacked option
+\newcommand{\optionbox}[3]{
+
+\tile{#1}{#2}{
+#3
+}
+
+\tile{#1}{#2-1.2}{
+\bdot{#1+0.9}{#2-0.9}
+\bdot{#1+0.9}{#2-0.6}
+}
+
+}
+
+
+% option i
+\optionbox{0}{3.2}{
+\bdot{0.6}{3.5}
+\bdot{0.9}{3.5}
+\bdot{0.3}{3.8}
+\bdot{0.9}{3.8}
+\bdot{0.6}{4.1}
+\bdot{0.9}{4.1}
+}
+\node at (0.6,1.6){(i)};
+
+
+% option ii
+\optionbox{3.5}{3.2}{
+\bdot{4.1}{3.5}
+\bdot{4.4}{3.5}
+\bdot{4.4}{3.8}
+\bdot{4.1}{4.1}
+\bdot{4.4}{4.1}
+}
+\node at (4.1,1.6){(ii)};
+
+
+% separators
+\draw[dashed] (-0.5,1.25)--(5.5,1.25);
+\draw[dashed] (2.5,-2.1)--(2.5,4.4);
+
+
+
+% option iii
+\begin{scope}[yshift=-3.4cm]
+
+\optionbox{0}{3.2}{
+\bdot{0.6}{3.5}
+\bdot{0.9}{3.5}
+\bdot{0.3}{3.8}
+\bdot{0.9}{3.8}
+\bdot{0.6}{4.1}
+\bdot{0.9}{4.1}
+}
+\node at (0.6,1.6){(iii)};
+
+\end{scope}
+
+
+% option iv
+\begin{scope}[xshift=3.5cm,yshift=-3.4cm]
+
+\optionbox{0}{3.2}{
+\bdot{0.6}{3.5}
+\bdot{0.9}{3.5}
+\bdot{0.9}{3.8}
+\bdot{0.6}{4.1}
+\bdot{0.9}{4.1}
+}
+\node at (0.6,1.6){(iv)};
+
+\end{scope}
+
+\end{scope}
+
+
+\end{tikzpicture}
+
+\end{center}
+
+\\
+\hline
+
+\multicolumn{2}{|p{13.5cm}|}{
+Based on the figures in Panel I and Panel II, select the appropriate choice for the missing tiles.
 }
 \\
-
 \hline
 
-(A) & (i) \\
+(A) & (i)\\
 \hline
-(B) & (ii) \\
+(B) & (ii)\\
 \hline
-(C) & (iii) \\
+(C) & (iii)\\
 \hline
-(D) & (iv) \\
+(D) & (iv)\\
 \hline
 
 \end{tabular}
@@ -215,57 +569,277 @@ Two tiles are missing in Panel I. Which one of the options in Panel II is the ap
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
 
-\textbf{Q.8} &
-Three different views of a dice are shown below.
+Q.8 &
+Figures (i) and (ii) represent intercity highway systems. The black dots represent
+cities and the line segments between them represent intercity highways.
+
+A salesperson needs to make a trip. She needs to start from a city, visit each of
+the remaining cities exactly once, and finally return to the same city from which
+she started.
+
+\vspace{0.3cm}
+
+Which one of the following options is then true?
+
+\vspace{0.5cm}
 
 \begin{center}
-\includegraphics[width=0.45\textwidth]{figures/images-025.png}
+\begin{tikzpicture}[
+scale=0.75,
+city/.style={circle, fill=black, inner sep=2.5pt}
+]
+
+%---------------- Figure (i) ----------------%
+
+\node at (1.5,3.5) {\textbf{(i)}};
+
+% grid
+\foreach \x in {0,1,2,3}{
+    \draw (\x,0)--(\x,3);
+}
+
+\foreach \y in {0,1,2,3}{
+    \draw (0,\y)--(3,\y);
+}
+
+% nodes
+\foreach \x in {0,1,2,3}{
+    \foreach \y in {0,1,2,3}{
+        \node[city] at (\x,\y){};
+    }
+}
+
+
+%---------------- Figure (ii) ----------------%
+
+\begin{scope}[xshift=6cm]
+
+\node at (1.4,3.5) {\textbf{(ii)}};
+
+\node[city] (A) at (0,3){};
+\node[city] (B) at (3,3){};
+\node[city] (C) at (1.7,2.2){};
+\node[city] (D) at (1.4,0.4){};
+\node[city] (E) at (-0.4,1.1){};
+
+\draw (A)--(B);
+\draw (A)--(C);
+\draw (C)--(D);
+\draw (D)--(B);
+\draw (D)--(E);
+\draw (E)--(A);
+
+\end{scope}
+
+\end{tikzpicture}
 \end{center}
 
-If the face having number 1 is at the bottom, then the number on the top face is:
 \\
-
 \hline
 
-(A) & 2 \\
+& \\[-0.3cm]
 \hline
 
-(B) & 3 \\
+(A) &
+Such a trip is possible for (i), but not for (ii).
+\\
 \hline
 
-(C) & 5 \\
+(B) &
+Such a trip is possible for (ii), but not for (i).
+\\
 \hline
 
-(D) & 6 \\
+(C) &
+Such a trip is possible for both (i) and (ii).
+\\
+\hline
+
+(D) &
+Such a trip is possible neither for (i) nor for (ii).
+\\
 \hline
 
 \end{tabular}
+ 
+\vspace{0.3cm}
 
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
 
 \textbf{Q.9} &
-A cube is shown with its dimensions.
-
-\begin{center}
-\includegraphics[width=0.55\textwidth]{figures/q9full.png}
-\end{center}
-
-Based on the above figures, identify the correct option.
+The figure in Panel I below is a grid of cells with four rows and four columns.
+The numbers on the top and on the left represent the number of cells that are to
+be shaded in that column and row, respectively. Which one of the options shown
+in Panel II below represents the grid shaded correctly?
 \\
-
 \hline
 
-(A) & Only statement I is correct \\
+&
+\begin{center}
+
+\begin{tikzpicture}[scale=0.9,transform shape]
+
+% ---------- commands ----------
+
+\newcommand{\boxgrid}[2]{
+
+% outer box
+\draw (#1,#2) rectangle (#1+2,#2+2);
+
+% vertical lines
+\draw (#1+0.5,#2)--(#1+0.5,#2+2);
+\draw (#1+1,#2)--(#1+1,#2+2);
+\draw (#1+1.5,#2)--(#1+1.5,#2+2);
+
+% horizontal lines
+\draw (#1,#2+0.5)--(#1+2,#2+0.5);
+\draw (#1,#2+1)--(#1+2,#2+1);
+\draw (#1,#2+1.5)--(#1+2,#2+1.5);
+
+}
+
+\newcommand{\gcell}[2]{
+\fill[gray!45] (#1,#2) rectangle ++(0.5,0.5);
+}
+
+
+% ================= PANEL I =================
+
+\node at (1,3.4){Panel I};
+
+% top numbers
+\node at (0.25,2.45){2};
+\node at (0.75,2.45){2};
+\node at (1.25,2.45){2};
+\node at (1.75,2.45){2};
+
+% side numbers
+\node at (-0.25,1.75){3};
+\node at (-0.25,1.25){1};
+\node at (-0.25,0.75){2};
+\node at (-0.25,0.25){2};
+
+\boxgrid{0}{0}
+
+
+% divider between panels
+\draw[line width=1pt] (2.8,-1.6)--(2.8,3.5);
+
+
+
+% ================= PANEL II =================
+
+\begin{scope}[xshift=3.5cm]
+
+\node at (2.6,3.4){Panel II};
+
+
+% ---------- OPTION i ----------
+
+% shading
+\gcell{0}{2.5}
+\gcell{1}{2.5}
+\gcell{1.5}{2.5}
+
+\gcell{0.5}{2}
+\gcell{1.5}{2}
+
+\gcell{1}{1.5}
+
+\gcell{0}{1}
+\gcell{0.5}{1}
+
+% draw grid LAST
+\boxgrid{0}{1}
+
+\node at (1,0.65){(i)};
+
+
+
+% ---------- OPTION ii ----------
+
+\gcell{3}{2.5}
+\gcell{4}{2.5}
+\gcell{4.5}{2.5}
+
+\gcell{3.5}{2}
+
+\gcell{4}{1.5}
+\gcell{4.5}{1.5}
+
+\gcell{3}{1}
+\gcell{3.5}{1}
+
+\boxgrid{3}{1}
+
+\node at (4,0.65){(ii)};
+
+
+
+% dashed separators
+
+\draw[dashed] (-0.4,0.45)--(5.4,0.45);
+
+\draw[dashed] (2.5,-2.5)--(2.5,3.1);
+
+
+
+% ---------- OPTION iii ----------
+
+\gcell{0}{-0.5}
+\gcell{1}{-0.5}
+\gcell{1.5}{-0.5}
+
+\gcell{0.5}{-1}
+\gcell{1}{-1}
+
+\gcell{1}{-1.5}
+
+\gcell{0}{-2}
+\gcell{0.5}{-2}
+
+\boxgrid{0}{-2}
+
+\node at (1,-2.35){(iii)};
+
+
+
+% ---------- OPTION iv ----------
+
+\gcell{3}{-0.5}
+\gcell{3.5}{-0.5}
+\gcell{4}{-0.5}
+\gcell{4.5}{-0.5}
+
+\gcell{3.5}{-1}
+
+\gcell{4}{-1.5}
+
+\gcell{3}{-2}
+\gcell{3.5}{-2}
+\gcell{4.5}{-2}
+
+\boxgrid{3}{-2}
+
+\node at (4,-2.35){(iv)};
+
+
+\end{scope}
+
+\end{tikzpicture}
+
+\end{center}
+\\
 \hline
 
-(B) & Only statement II is correct \\
+(A) & (i)\\
 \hline
-
-(C) & Both statements are correct \\
+(B) & (ii)\\
 \hline
-
-(D) & Neither statement is correct \\
+(C) & (iii)\\
+\hline
+(D) & (iv)\\
 \hline
 
 \end{tabular}
@@ -280,17 +854,29 @@ An unbiased six-faced dice whose faces are marked with numbers 1, 2, 3, 4, 5, an
 \\
 
 \hline
+(A) & 
+\rule{0pt}{1cm}
+$\dfrac{3}{36}$
+\\[0.3cm]
 
-(A) & $\dfrac{3}{36}$ \\
 \hline
+(B) &
+\rule{0pt}{1cm}
+$\dfrac{13}{36}$
+\\[0.3cm]
 
-(B) & $\dfrac{13}{36}$ \\
 \hline
+(C) &
+\rule{0pt}{1cm}
+$\dfrac{15}{36}$
+\\[0.3cm]
 
-(C) & $\dfrac{15}{36}$ \\
 \hline
+(D) &
+\rule{0pt}{1cm}
+$\dfrac{19}{36}$
+\\[0.3cm]
 
-(D) & $\dfrac{19}{36}$ \\
 \hline
 
 \end{tabular}
@@ -691,6 +1277,8 @@ Which one of the following statements is true?
 
 \end{tabular}
 
+\vspace{0.5cm}
+
 \begin{tabular}{|p{1.2cm}|p{12cm}|}
 \hline
 
@@ -887,6 +1475,8 @@ Q.28 &
 \parbox[t]{\linewidth}{
 In a system, numbers are represented using 4-bit two's complement form. Consider four numbers $N1=1011$, $N2=1101$, $N3=1010$ and $N4=1001$ in the system. Which of the following operations will result in arithmetic overflow?
 }
+
+\rule{0pt}{0.8cm}
 \\
 \hline
 & \\
@@ -1052,453 +1642,804 @@ the number of tokens (excluding \textit{ws}) that will be produced by the lexica
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.5}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.36 &
 \parbox[t]{\linewidth}{
-Consider a complete graph $K_n$ with $n$ vertices ($n>4$). Note that multiple spanning trees can be constructed over $K_n$. Each of these spanning trees is represented as a set of edges.
+Consider a complete graph $K_n$ with $n$ vertices $(n>4)$. Note that
+multiple spanning trees can be constructed over $K_n$. Each of these
+spanning trees is represented as a set of edges.
 
-The Jaccard coefficient between any two sets is defined as the ratio of the size of the intersection of the two sets to the size of the union of the two sets.
+The Jaccard coefficient between any two sets is defined as the ratio
+of the size of the intersection of the two sets to the size of the union
+of the two sets.
 
-Which one of the following options gives the lowest possible value for the Jaccard coefficient between any two spanning trees of $K_n$ ?
+Which one of the following options gives the lowest possible value
+for the Jaccard coefficient between any two spanning trees of $K_n$?
+
+\vspace{0.25cm}
 }
 \\
 \hline
+
 & \\
+[-0.3cm]
 \hline
-(A) & $\dfrac{1}{n}$ \\
+
+(A) & 
+\raisebox{-0.15cm}{$\displaystyle\frac{1}{n}$}
+\\[0.35cm]
 \hline
-(B) & $\dfrac{1}{2n-3}$ \\
+
+(B) &
+\raisebox{-0.15cm}{$\displaystyle\frac{1}{2n-3}$}
+\\[0.35cm]
 \hline
-(C) & $0$ \\
+
+(C) &
+$0$
+\\[0.25cm]
 \hline
-(D) & $\dfrac{1}{n-1}$ \\
+
+(D) &
+\raisebox{-0.15cm}{$\displaystyle\frac{1}{n-1}$}
+\\[0.35cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.37 &
 \parbox[t]{\linewidth}{
-Let $G$ be a weighted directed acyclic graph with $m$ edges and $n$ vertices.
-Given $G$ and a source vertex $s$ in $G$, which one of the following options gives
-the worst case time complexity of the fastest algorithm to find the lengths of
-shortest paths from $s$ to all vertices that are reachable from $s$ in $G$?
+\strut
+Let $G$ be a weighted directed acyclic graph with $m$ edges and $n$
+vertices. Given $G$ and a source vertex $s$ in $G$, which one of the
+following options gives the worst case time complexity of the fastest
+algorithm to find the lengths of shortest paths from $s$ to all vertices
+that are reachable from $s$ in $G$?
+
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+& \\[-0.2cm]
 \hline
-(A) & $\Theta(m+n)$ \\
+
+(A) & $\Theta(m+n)$ \\[0.25cm]
 \hline
-(B) & $\Theta(m+n\log(n))$ \\
+
+(B) & $\Theta(m+n\log(n))$ \\[0.25cm]
 \hline
-(C) & $\Theta(nm)$ \\
+
+(C) & $\Theta(nm)$ \\[0.25cm]
 \hline
-(D) & $\Theta(n^3)$ \\
+
+(D) & $\Theta(n^3)$ \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
+
+\newpage
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.38 &
 \parbox[t]{\linewidth}{
-Consider an array $A$ of integers of size $n$. The indices of $A$ run from $1$ to $n$.
-An algorithm is to be designed to check whether $A$ satisfies the condition given below.
+\strut
+Consider an array $A$ of integers of size $n$. The indices of $A$ run from
+$1$ to $n$. An algorithm is to be designed to check whether $A$ satisfies
+the condition given below.
 
 \[
-\forall i,j \in \{1,\ldots,n-1\}
-\text{ such that } i>j,\;
-(A[i+1]-A[i])>(A[j+1]-A[j])
+\forall i,j \in \{1,\ldots,n-1\}\ \text{such that } i>j,
+\]
+\[
+(A[i+1]-A[i]) > (A[j+1]-A[j])
 \]
 
-Which one of the following gives the worst case time complexity of the fastest
-algorithm that can be designed for the problem?
+Which one of the following gives the worst case time complexity of
+the fastest algorithm that can be designed for the problem?
+
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.2cm]
 \hline
-(A) & $\Theta(n)$ \\
+
+(A) & $\Theta(n)$ \\[0.25cm]
 \hline
-(B) & $\Theta(\log(n))$ \\
+
+(B) & $\Theta(\log(n))$ \\[0.25cm]
 \hline
-(C) & $\Theta(n\log(n))$ \\
+
+(C) & $\Theta(n\log(n))$ \\[0.25cm]
 \hline
-(D) & $\Theta(n^2)$ \\
+
+(D) & $\Theta(n^2)$ \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
+\newpage
+
+\vspace{0.3cm}
+
+\renewcommand{\arraystretch}{1.25}
+
+\vspace{0.3cm}
+
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.39 &
 \parbox[t]{\linewidth}{
-Consider a table $T$, where the elements $T[i][j]$, $0\le i,j\le n$,
-represent the cost of the optimal solutions of different subproblems of a
-problem that is being solved using a dynamic programming algorithm.
+\small
+\vspace{0.05cm}
+Consider a table $T$, where the elements $T[i][j]$, $0\leq i,j\leq n$,
+represent the cost of the optimal solutions of different subproblems
+of a problem that is being solved using a dynamic programming algorithm.
 
 The recursive formulation to compute the table entries is as follows:
 
 \[
-T[0][k]=T[k][0]=1
-\qquad \text{for } k=0,1,2,\ldots,n
+T[0][k]=T[k][0]=1 \qquad \text{for } k=0,1,2,\ldots,n
 \]
 
 \[
-T[i][j]=2T[i-1][j]+3T[i][j-1]
-\qquad \text{for } 1\le i,j\le n
+T[i][j]=2T[i-1][j]+3T[i][j-1]\qquad \text{for }1\leq i,j\leq n
 \]
 
 Consider the following two algorithms to compute entries of $T$.
-Assume that for both algorithms, for all $0\le i,j\le n$,
-$T[i][j]$ has been initialized to $1$.
-
-\vspace{0.2cm}
+Assume that for both algorithms, for all $0\leq i,j\leq n$, $T[i][j]$
+has been initialized to 1.
 
 Algorithm $B_1$:
 
 \[
-\text{For } i=1,2,\ldots,n
+\begin{array}{c}
+\text{For } i=1,2,\ldots,n\\[0.25cm]
+\text{For } j=1,2,\ldots,n\\[0.25cm]
+T[i][j]=2T[i-1][j]+3T[i][j-1]
+\end{array}
 \]
-
-\[
-\qquad \text{For } j=1,2,\ldots,n
-\]
-
-\[
-\qquad\qquad T[i][j]=2T[i-1][j]+3T[i][j-1]
-\]
-
-\vspace{0.2cm}
 
 Algorithm $B_2$:
 
 \[
-\text{For } s=2,3,\ldots,2n
-\]
-
-\[
-\qquad \text{For } i=1,2,\ldots,n
-\]
-
-\[
-\qquad\qquad \text{For } j=1,2,\ldots,n
-\]
-
-\[
-\qquad\qquad\qquad \text{If } (i+j==s)
-\]
-
-\[
-\qquad\qquad\qquad\qquad
+\begin{array}{c}
+\text{For } s=2,3,\ldots,2n\\[0.25cm]
+\text{For } i=1,2,\ldots,n\\[0.25cm]
+\text{For } j=1,2,\ldots,n\\[0.25cm]
+\text{If }(i+j==s)\\[0.25cm]
 T[i][j]=2T[i-1][j]+3T[i][j-1]
+\end{array}
 \]
 
-\vspace{0.2cm}
-
-Algorithm $B_k$, $k\in\{1,2\}$ is said to be correct if and only if it
-calculates the correct values of $T[i][j]$, for all
-$0\le i,j\le n$, (as per the recursive formulation) at the end of
-the execution of the algorithm $B_k$.
+Algorithm $B_k$, $k\in\{1,2\}$ said to be correct if and only if it
+calculates the correct values of $T[i][j]$ for all $0\leq i,j\leq n$,
+(as per the recursive formulation) at the end of the execution of the
+algorithm $B_k$.
 
 Which one of the following statements is true?
+
+\vspace{0.3cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.2cm]
 \hline
-(A) & Both algorithms $B_1$ and $B_2$ are correct \\
+
+(A) & Both algorithms $B_1$ and $B_2$ are correct \\[0.25cm]
 \hline
-(B) & Algorithm $B_1$ is correct, but algorithm $B_2$ is incorrect \\
+
+(B) & Algorithm $B_1$ is correct, but algorithm $B_2$ is incorrect \\[0.25cm]
 \hline
-(C) & Algorithm $B_2$ is correct, but algorithm $B_1$ is incorrect \\
+
+(C) & Algorithm $B_2$ is correct, but algorithm $B_1$ is incorrect \\[0.25cm]
 \hline
-(D) & Both algorithms $B_1$ and $B_2$ are incorrect \\
+
+(D) & Both algorithms $B_1$ and $B_2$ are incorrect \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.40 &
 \parbox[t]{\linewidth}{
+\strut
 Consider the following 4-variable Boolean function
 
 \[
 F(A,B,C,D)=\Sigma m(0,1,2,3,8,9,10,11)
 \]
 
-Consider $A$ as MSB, $D$ as LSB. Which one of the following options represents the minimal sum of products form for the above function?
+Consider $A$ as MSB, $D$ as LSB. Which one of the following options
+represents the minimal sum of products form for the above function?
 
 \vspace{0.2cm}
 
-\textit{Note:} $+$ is OR operation, $\cdot$ is AND operation, $'$ is NOT operation
+\textit{Note:} $+$ is OR operation, $\cdot$ is AND operation,
+$'$ is NOT operation
+
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.2cm]
 \hline
-(A) & $A'+B'+C'+D'$ \\
+
+(A) & $A' + B' + C'' + D'$ \\[0.25cm]
 \hline
-(B) & $B'$ \\
+
+(B) & $B'$ \\[0.25cm]
 \hline
-(C) & $A'B'+AB$ \\
+
+(C) & $A'B' + AB$ \\[0.25cm]
 \hline
-(D) & $A'$ \\
+
+(D) & $A'$ \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.41 &
 \parbox[t]{\linewidth}{
-Consider the canonical $LR(0)$ parsing of the grammar below using terminals $\{a,b,c\}$ and non-terminals $\{A,B,C,S\}$ with $S$ as the start symbol.
+\strut
+Consider the canonical $LR(0)$ parsing of the grammar below using
+terminals $\{a,b,c\}$ and non-terminals $\{A,B,C,S\}$ with $S$ as the
+start symbol.
 
 \[
 S \rightarrow ACB
 \]
 
 \[
-A \rightarrow aA \mid \epsilon
+A \rightarrow aA\ |\ \epsilon
 \]
 
 \[
-C \rightarrow cC \mid \epsilon
+C \rightarrow cC\ |\ \epsilon
 \]
 
 \[
-B \rightarrow bB \mid b
+B \rightarrow bB\ |\ b
 \]
 
-Which one of the following options gives the number of shift-reduce conflicts that will occur in the $LR(0)$ ACTION table?
+Which one of the following options gives the number of shift-reduce
+conflicts that will occur in the $LR(0)$ ACTION table?
+
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.2cm]
 \hline
-(A) & 2 \\
+
+(A) & 2 \\[0.25cm]
 \hline
-(B) & 3 \\
+
+(B) & 3 \\[0.25cm]
 \hline
-(C) & 4 \\
+
+(C) & 4 \\[0.25cm]
 \hline
-(D) & 5 \\
+
+(D) & 5 \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.42 &
 \parbox[t]{\linewidth}{
-In the context of schema normalization in relational DBMS, consider a set $F$ of functional dependencies. The set of all functional dependencies implied by $F$ is called the closure of $F$.
+\strut
+In the context of schema normalization in relational DBMS, consider a set
+$F$ of functional dependencies. The set of all functional dependencies
+implied by $F$ is called the closure of $F$.
 
 To compute the closure of $F$, Armstrong's Axioms can be applied.
-
 Consider $X,Y,$ and $Z$ as sets of attributes over a relational schema.
 
 The three rules of Armstrong's Axioms are described as follows.
 
-\vspace{0.2cm}
+\vspace{0.15cm}
 
-Reflexivity:
-If $Y \subseteq X$, then $X \rightarrow Y$
+Reflexivity: If $Y\subseteq X$, then $X\rightarrow Y$
 
-\vspace{0.2cm}
+Augmentation: If $X\rightarrow Y$, then $XZ\rightarrow YZ$ for any $Z$
 
-Augmentation:
-If $X \rightarrow Y$, then $XZ \rightarrow YZ$ for any $Z$
+Transitivity: If $X\rightarrow Y$ and $Y\rightarrow Z$, then $X\rightarrow Z$
 
-\vspace{0.2cm}
-
-Transitivity:
-If $X \rightarrow Y$ and $Y \rightarrow Z$, then $X \rightarrow Z$
-
-\vspace{0.2cm}
+\vspace{0.15cm}
 
 The additional rule of Union is defined as follows.
 
-\vspace{0.2cm}
+Union: If $X\rightarrow Y$ and $X\rightarrow Z$, then $X\rightarrow YZ$
 
-Union:
-If $X \rightarrow Y$ and $X \rightarrow Z$, then $X \rightarrow YZ$
+\vspace{0.15cm}
 
-\vspace{0.2cm}
+It can be proved that the additional rule of Union is also implied
+by the three rules of Armstrong's Axioms.
 
-It can be proved that the additional rule of Union is also implied by the three rules of Armstrong's Axioms.
+Listed below are four combinations of these three rules. Which one of
+these combinations is both necessary and sufficient for the proof?
 
-Listed below are four combinations of these three rules.
-
-Which one of these combinations is both necessary and sufficient for the proof?
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.2cm]
 \hline
-(A) & Reflexivity, Augmentation, and Transitivity \\
+
+(A) & Reflexivity, Augmentation, and Transitivity \\[0.25cm]
 \hline
-(B) & Reflexivity and Augmentation \\
+
+(B) & Reflexivity and Augmentation \\[0.25cm]
 \hline
-(C) & Transitivity \\
+
+(C) & Transitivity \\[0.25cm]
 \hline
-(D) & Augmentation and Transitivity \\
+
+(D) & Augmentation and Transitivity \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.43 &
 \parbox[t]{\linewidth}{
-Consider the transmission of data bits 110001011 over a link that uses Cyclic Redundancy Check (CRC) code for error detection.
+\strut
+Consider the transmission of data bits 11001011 over a link that uses
+Cyclic Redundancy Check (CRC) code for error detection.
 
-If the generator bit pattern is given to be 1001, which one of the following options shows the remainder bit pattern appended to the data bits before transmission?
+If the generator bit pattern is given to be 1001, which one of the
+following options shows the remainder bit pattern appended to the data
+bits before transmission?
+
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.2cm]
 \hline
-(A) & 011 \\
+
+(A) & 011 \\[0.25cm]
 \hline
-(B) & 101 \\
+
+(B) & 101 \\[0.25cm]
 \hline
-(C) & 000 \\
+
+(C) & 000 \\[0.25cm]
 \hline
-(D) & 100 \\
+
+(D) & 100 \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.44 &
 \parbox[t]{\linewidth}{
-Consider a processor that has 16 general purpose registers and it uses 2-byte instruction format for all its instructions.
 
-Variable-sized opcodes are permitted.
+Consider a processor that has 16 general purpose registers and it uses 
+2-byte instruction format for all its instructions. Variable-sized opcodes 
+are permitted. There are three different types of instructions; M-type, 
+R-type, and C-type.
 
-There are three different types of instructions: M-type, R-type, and C-type.
+Each M-type instruction has 2 register operands and a 6-bit immediate 
+operand. Each R-type instruction has 3 register operands. Each C-type 
+instruction has a register operand and a 6-bit offset value.
 
-Each M-type instruction has 2 register operands and a 6-bit immediate operand.
+If there are 2 unique M-type opcodes and 7 unique R-type opcodes, which 
+one of the following options gives the maximum number of unique opcodes 
+possible for C-type instructions?
 
-Each R-type instruction has 3 register operands.
-
-Each C-type instruction has a register operand and a 6-bit offset value.
-
-If there are 2 unique M-type opcodes and 7 unique R-type opcodes, which one of the following options gives the maximum number of unique opcodes possible for C-type instructions?
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.15cm]
 \hline
-(A) & 8 \\
+
+(A) & 8 \\[0.25cm]
 \hline
-(B) & 4 \\
+
+(B) & 4 \\[0.25cm]
 \hline
-(C) & 64 \\
+
+(C) & 64 \\[0.25cm]
 \hline
-(D) & 16 \\
+
+(D) & 16 \\[0.25cm]
 \hline
+
 \end{tabular}
 
 \vspace{0.3cm}
 
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.45 &
 \parbox[t]{\linewidth}{
+\strut
 Consider the control flow graph given below.
-
-\begin{center}
-\includegraphics[width=0.55\textwidth]{./figures/images-101.png}
-\end{center}
-
-Which one of the following options is the set of live variables at the exit point of each basic block?
-}
-\\
-\hline
-& \\
-\hline
-(A) & B1:\{a,b,c,e,f\}, B2:\{d,e\}, B3:\{b,c,e,f\}, B4:$\emptyset$ \\
-\hline
-(B) & B1:$\emptyset$, B2:\{d,e\}, B3:\{a,c,f\}, B4:$\emptyset$ \\
-\hline
-(C) & B1:\{a,b,c,e,f\}, B2:\{d,e\}, B3:\{c,e,f\}, B4:$\emptyset$ \\
-\hline
-(D) & B1:$\emptyset$, B2:\{d,e,f\}, B3:\{a,b,c,e,f\}, B4:$\emptyset$ \\
-\hline
-\end{tabular}
 
 \vspace{0.3cm}
 
+\begin{center}
+\begin{tikzpicture}[
+>=Stealth,
+scale=0.9,
+block/.style={
+rectangle,
+draw,
+minimum width=2.2cm,
+minimum height=0.7cm,
+align=center
+}
+]
+
+% ---------- nodes ----------
+
+\node (entry) at (0,2.8) {ENTRY};
+
+\node[block] (B1) at (0,1.8) {$a=b+c$};
+\node[left] at (-1.25,2.15) {B1};
+
+\node[block] (B2) at (0,0.5) {$d=a+e$};
+\node[left] at (-1.25,0.8) {B2};
+
+\node[block] (B3) at (2.7,0.5) {$e=a+f$};
+\node[above] at (2.7,0.95) {B3};
+
+\node[block] (B4) at (0,-0.8) {$g=d+e$};
+\node[left] at (-1.25,-0.5) {B4};
+
+\node (exit) at (0,-2) {EXIT};
+
+
+% ---------- arrows ----------
+
+% entry
+\draw[->] (entry)--(B1);
+
+% B1 to B2
+\draw[->] (B1)--(B2);
+
+% B1 to B3 (direct diagonal)
+\draw[->] (B1.south east) -- (B3.north west);
+
+% B2 to B4
+\draw[->] (B2)--(B4);
+
+% B4 to exit
+\draw[->] (B4)--(exit);
+
+% loop B3 back to B1
+\draw[->]
+(B3.east)
+to[out=0,in=20,looseness=2]
+(B1.east);
+
+
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.2cm}
+
+Which one of the following options is the set of live variables at the
+exit point of each basic block?
+
+\vspace{0.35cm}
+}
+\\
+\hline
+
+& \\[-0.2cm]
+\hline
+
+(A) & B1:\{a,b,c,f\}, B2:\{d,e\}, B3:\{b,c,e,f\}, B4:$\emptyset$ \\[0.25cm]
+\hline
+
+(B) & B1:$\emptyset$, B2:\{d,e\}, B3:\{a,c,f\}, B4:$\emptyset$ \\[0.25cm]
+\hline
+
+(C) & B1:\{a,b,c,e,f\}, B2:\{d,e\}, B3:\{c,e,f\}, B4:$\emptyset$ \\[0.25cm]
+\hline
+
+(D) & B1:$\emptyset$, B2:\{d,e,f\}, B3:\{a,b,c,e,f\}, B4:$\emptyset$ \\[0.25cm]
+\hline
+
+\end{tabular}
+
+\renewcommand{\arraystretch}{1}
+
+\vspace{0.3cm}
+
+\renewcommand{\arraystretch}{1.25}
+
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.46 &
 \parbox[t]{\linewidth}{
-An index in a DBMS is said to be dense if an index entry appears for every search-key value in the indexed file. Otherwise it is called a sparse index. Consider the following two statements.
+\strut
+An index in a DBMS is said to be dense if an index entry appears
+for every search-key value in the indexed file. Otherwise it is called
+a sparse index.
+
+Consider the following two statements.
 
 \vspace{0.2cm}
 
 S1: A hash index must be a dense index
 
-S2: A $B^{+}$ tree index can be a sparse index
+S2: A $B^+$ tree index can be a sparse index
 
 \vspace{0.2cm}
 
 Which one of the following options is correct?
+
+\vspace{0.35cm}
 }
 \\
 \hline
-& \\
+
+& \\[-0.2cm]
 \hline
-(A) & Both S1 and S2 are true \\
+
+(A) & Both S1 and S2 are true \\[0.25cm]
 \hline
-(B) & Both S1 and S2 are false \\
+
+(B) & Both S1 and S2 are false \\[0.25cm]
 \hline
-(C) & S1 is true and S2 is false \\
+
+(C) & S1 is true and S2 is false \\[0.25cm]
 \hline
-(D) & S1 is false and S2 is true \\
+
+(D) & S1 is false and S2 is true \\[0.25cm]
 \hline
+
 \end{tabular}
+
+\renewcommand{\arraystretch}{1}
 
 \vspace{0.3cm}
 
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.47 &
 \parbox[t]{\linewidth}{
+
 Consider the following two finite automata $D_1$ and $D_2$.
 
+\vspace{0.5cm}
+
 \begin{center}
-\includegraphics[width=\linewidth]{./figures/images-140.png}
+
+\begin{tikzpicture}[
+scale=0.8,
+transform shape,
+state/.style={circle,draw,minimum size=0.38cm},
+accept/.style={circle,draw,double,minimum size=0.38cm},
+>=stealth
+]
+
+% ====================== D1 ======================
+
+\begin{scope}
+
+\node[accept] (A) at (0,0) {};
+\node[state] (B) at (1.4,0.8) {};
+\node[state] (C) at (2.8,1.1) {};
+\node[state] (D) at (4,1.5) {};
+\node[state] (E) at (1.6,-1.2) {};
+\node[state] (F) at (-0.1,-2) {};
+
+\draw[->] (-1,0)--(A);
+
+\draw[->,bend left=45]
+(A) to node[above]{0} (D);
+
+\draw[->]
+(A) to node[above]{0} (B);
+
+\draw[->]
+(B) to node[above]{0} (C);
+
+\draw[->,bend right=45]
+(B) to node[below]{1} (D);
+
+\draw[->,bend left=35]
+(C) to node[below]{0} (A);
+
+\draw[->,bend left=55]
+(D) to node[above]{0} (A);
+
+\draw[->]
+(A) to node[right]{1} (E);
+
+\draw[->]
+(E) to node[below]{0} (F);
+
+\draw[->]
+(F) to node[left]{1} (A);
+
+\node at (2,-2.8){$D_{1}$};
+
+\end{scope}
+
+% ====================== D2 ======================
+
+\begin{scope}[xshift=7cm]
+
+% States
+\node[accept] (A2) at (0,0) {};
+
+\node[state] (B2) at (1.45,0.35) {};
+\node[state] (C2) at (3.0,0.35) {};
+
+\node[state] (D2) at (1.45,-1.15) {};
+\node[state] (E2) at (0,-1.8) {};
+
+
+% Start arrow
+\draw[->] (-1,0)--(A2);
+
+
+% Top path
+\draw[->]
+(A2) -- node[above]{0} (B2);
+
+\draw[->]
+(B2) -- node[above]{1} (C2);
+
+
+% Big upper curve
+\draw[->]
+(C2) to[out=140,in=40,looseness=1.6]
+node[above]{1} (A2);
+
+
+% Middle paths
+\draw[->]
+(A2) -- node[above]{1} (D2);
+
+\draw[->]
+(D2) -- node[above]{1} (C2);
+
+
+% Bottom connections
+\draw[->]
+(D2) -- node[above left]{0} (E2);
+
+\draw[->]
+(E2) -- node[left]{0} (A2);
+
+
+% OUTSIDE bottom curve (fixed)
+\draw[->]
+(D2) to[out=-100,in=-20,looseness=1.4]
+node[below]{1} (E2);
+
+
+% Label
+\node at (1.5,-2.7){$D_2$};
+
+\end{scope}
+
+\end{tikzpicture}
+
 \end{center}
 
+\vspace{0.5cm}
+
 Which of the following statements is/are true?
+
+\vspace{0.35cm}
+
 }
 \\
 \hline
-& \\
+
+& \\[-0.1cm]
 \hline
-(A) & $L(D_1)=L(D_2)$ \\
+
+(A) &
+$L(D_1)=L(D_2)$
+\\[0.35cm]
 \hline
-(B) & $L(D_1)$ is a proper subset of $L(D_2)$ \\
+
+(B) &
+$L(D_1)$ is a proper subset of $L(D_2)$
+\\[0.35cm]
 \hline
-(C) & $L(D_1)\cap L(D_2)=\{\epsilon\}$ \\
+
+(C) &
+$L(D_1)\cap L(D_2)=\{\epsilon\}$
+\\[0.35cm]
 \hline
-(D) & $(L(D_1)\cup L(D_2))^*$ consists of all strings in $\{0,1\}^*$ whose length is divisible by $3$ \\
+
+(D) &
+$(L(D_1)\cup L(D_2))^*$ consists of all strings in $\{0,1\}^*$ whose length is divisible by 3
+\\[0.35cm]
 \hline
+
 \end{tabular}
 
 \vspace{0.3cm}
@@ -1513,7 +2454,10 @@ Let $\Sigma=\{a,b,c,d\}$ and let
 L=\{a^i b^j c^k d^\ell \mid i,j,k,\ell \ge 0\}.
 \]
 
-Which of the following constraints ensure(s) that the language $L$ is context-free?
+Which of the following constraints ensure(s) that the language $L$ is
+context-free?
+
+\rule{0pt}{0.8cm}
 }
 \\
 \hline
@@ -1589,6 +2533,9 @@ Given the output, the objective is to predict whether an element was assigned to
 
 Which of the following options is/are possible valid assignment(s) of the elements?
 }
+
+\rule{0pt}{0.8cm}
+
 \\
 \hline
 & \\
@@ -1673,6 +2620,8 @@ Which of the following statements is/are true?
 \vspace{0.2cm}
 
 \textit{Note: $1K=2^{10}$ and $1M=2^{20}$}
+
+\vspace{0.3cm}
 }
 \\
 \hline
@@ -1693,7 +2642,6 @@ Which of the following statements is/are true?
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
 Q.53 &
-\parbox[t]{\linewidth}{
 To keep track of free blocks in a file system, one of the two approaches is generally used -- using bitmaps (bit vectors) or using linked lists. Consider that the linked list approach is used to keep track of free blocks in a file system. Assume that the disk size is 16 GB, block size is 2 KB, and block numbers used are 32-bit long. A single pointer of size 4 bytes is used in each block of the list to point to the next block of the list.
 
 \vspace{0.2cm}
@@ -1703,7 +2651,8 @@ The number of blocks required to hold the free disk block numbers is \underline{
 \vspace{0.2cm}
 
 \textit{Note: $1K=2^{10}$ and $1G=2^{30}$}
-}
+
+\rule{0pt}{0.8cm}
 \\
 \hline
 \end{tabular}
@@ -1728,15 +2677,29 @@ A system has a Translation Lookaside Buffer (TLB) that has a reach of 1 MB. TLB 
 
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.55 &
-\parbox[t]{\linewidth}{
-Consider contiguous allocation of physical memory to processes using variable partitioning scheme. Suppose there are 8 holes in the memory of sizes 20 KB, 4 KB, 25 KB, 18 KB, 7 KB, 9 KB, 15 KB, and 12 KB. Assume that no two holes are adjacent. Two processes P1 of size 16 KB and P2 of size 9 KB arrive in that order, and they are allocated memory using the best-fit technique. After allocating space to P1 and P2, the number of holes of size less than 8 KB is \underline{\hspace{2cm}}. \textit{(answer in integer)}
+\begin{minipage}[t]{12cm}
 
-\vspace{0.2cm}
 
-\textit{Note: 1K=$2^{10}$}
-}
+Consider contiguous allocation of physical memory to processes using
+variable partitioning scheme. Suppose there are 8 holes in the memory
+of sizes 20 KB, 4 KB, 25 KB, 18 KB, 7 KB, 9 KB, 15 KB,
+and 12 KB. Assume that no two holes are adjacent. Two processes
+P1 of size 16 KB and P2 of size 9 KB arrive in that order, and they
+are allocated memory using the best-fit technique. After allocating
+space to P1 and P2, the number of holes of size less than 8 KB is
+\underline{\hspace{2cm}}. 
+(\textit{answer in integer})
+
+\vspace{0.3cm}
+
+\textit{Note: $1K=2^{10}$}
+
+\vspace{0.5cm}
+\end{minipage}
 \\
+
 \hline
 \end{tabular}
 
@@ -1744,15 +2707,28 @@ Consider contiguous allocation of physical memory to processes using variable pa
 
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.56 &
-\parbox[t]{\linewidth}{
-Consider a system with 1 MB physical memory and a word length of 1 byte. The system uses a direct mapped cache, with block numbers starting from 0. The word with physical address 0xA2C28 is mapped to the cache block number 176$_{10}$. The maximum possible size of the cache (in KB) for this configuration is \underline{\hspace{2cm}}. \textit{(answer in integer)}
+\begin{minipage}[t]{12cm}
 
-\vspace{0.2cm}
 
-\textit{Note: 1K=$2^{10}$ and 1M=$2^{20}$}
-}
+Consider a system with 1 MB physical memory and a word length
+of 1 byte. The system uses a direct mapped cache, with block
+numbers starting from 0. The word with physical address 0xA2C28 is
+mapped to the cache block number $176_{10}$. The maximum possible
+size of the cache (in KB) for this configuration is
+\underline{\hspace{2cm}}.
+
+(\textit{answer in integer})
+
+\vspace{0.3cm}
+
+\textit{Note: $1K=2^{10}$ and $1M=2^{20}$}
+
+\vspace{0.5cm}
+\end{minipage}
 \\
+
 \hline
 \end{tabular}
 
@@ -1760,15 +2736,32 @@ Consider a system with 1 MB physical memory and a word length of 1 byte. The sys
 
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.57 &
-\parbox[t]{\linewidth}{
-A non-pipelined instruction execution unit that operates at 1.6 GHz clock takes an average of 5 clock cycles to complete the execution of an instruction. To improve the performance, the system was pipelined with a goal of achieving an average throughput of one instruction per clock cycle. However, it could operate only at 1.2 GHz due to pipeline overheads. While executing a program in the pipelined design, 30\% of instructions encountered a stall of 2 cycles due to pipeline hazards. The speed-up obtained by the pipelined design over the non-pipelined one for this program is \underline{\hspace{2cm}}. \textit{(rounded off to two decimal places)}
+\begin{minipage}[t]{12cm}
+
+
+A non-pipelined instruction execution unit that operates at 1.6 GHz
+clock takes an average of 5 clock cycles to complete the execution
+of an instruction. To improve the performance, the system was
+pipelined with a goal of achieving an average throughput of one
+instruction per clock cycle. However, it could operate only at
+1.2 GHz due to pipeline overheads. While executing a program in the
+pipelined design, 30\% of instructions encountered a stall of 2 cycles
+due to pipeline hazards. The speed-up obtained by the pipelined
+design over the non-pipelined one for this program is
+\underline{\hspace{2cm}}.
+
+(\textit{rounded off to two decimal places})
 
 \vspace{0.3cm}
 
-\textit{Note: 1G=$10^9$}
-}
+\textit{Note: $1G=10^{9}$}
+
+\vspace{0.5cm}
+\end{minipage}
 \\
+
 \hline
 \end{tabular}
 
@@ -1776,15 +2769,33 @@ A non-pipelined instruction execution unit that operates at 1.6 GHz clock takes 
 
 \begin{tabular}{|p{1.5cm}|p{12cm}|}
 \hline
+
 Q.58 &
-\parbox[t]{\linewidth}{
-Consider a new TCP connection between a sender and a receiver. The receiver advertised window is constant at 48 KB, the maximum segment size (MSS) is 2 KB, and the slow start threshold for TCP congestion control is 16 KB. Assume that there are no timeouts or duplicate acknowledgements. The number of rounds of transmission required for the congestion control algorithm of the TCP connection to reach the congestion avoidance phase is \underline{\hspace{2cm}}. \textit{(answer in integer)}
+{
+\begin{minipage}[t]{12cm}
+
+
+Consider a new TCP connection between a sender and a receiver.
+The receiver advertised window is constant at 48 KB, the maximum
+segment size (MSS) is 2 KB, and the slow start threshold for TCP
+congestion control is 16 KB. Assume that there are no timeouts
+or duplicate acknowledgements. The number of rounds of transmission
+required for the congestion control algorithm of the TCP connection
+to reach the congestion avoidance phase is
+\underline{\hspace{2cm}}.
+
+(\textit{answer in integer})
 
 \vspace{0.3cm}
 
-\textit{Note: $1K = 2^{10}$}
+\textit{Note: $1K=2^{10}$}
+
+\vspace{0.5cm}
+
+\end{minipage}
 }
 \\
+
 \hline
 \end{tabular}
 
@@ -1801,7 +2812,68 @@ Consider the digital circuit shown below with two input lines A and B, two selec
 \textit{Note: One input combination is an instance of [A B S1 S0].}
 
 \begin{center}
-\includegraphics[width=0.55\textwidth]{./figures/images-143.png}
+\begin{tikzpicture}[
+scale=0.9,
+>=Stealth,
+font=\small
+]
+
+% ---------------- Decoder block Q ----------------
+\draw (0,0) rectangle (1.6,2.4);
+
+\node at (0.8,1.2) {\Large Q};
+
+\node at (1.35,2.0) {\scriptsize D0};
+\node at (1.35,1.4) {\scriptsize D1};
+\node at (1.35,0.8) {\scriptsize D2};
+\node at (1.35,0.25) {\scriptsize D3};
+
+% inputs A B
+\draw[->] (-1.2,1.8)--(0,1.8);
+\node[left] at (-1.2,1.8) {A};
+
+\draw[->] (-1.2,0.6)--(0,0.6);
+\node[left] at (-1.2,0.6) {B};
+
+
+% ---------------- MUX block M ----------------
+\draw (3.6,0) rectangle (5.2,2.4);
+
+\node at (4.4,1.2) {\Large M};
+
+\node at (3.8,2.05) {0};
+\node at (3.8,1.5) {1};
+\node at (3.8,0.9) {2};
+\node at (3.8,0.3) {3};
+
+% D0 to mux 0
+\draw[->] (1.6,2.0)--(3.6,2.0);
+
+% constant 0 to mux 1
+\draw[->] (2.4,1.5)--(3.6,1.5);
+\node[left] at (2.4,1.5) {0};
+
+% constant 1 to mux 2
+\draw[->] (2.4,0.9)--(3.6,0.9);
+\node[left] at (2.4,0.9) {1};
+
+% D3 to mux 3
+\draw[->] (1.6,0.25)--(3.6,0.25);
+
+
+% select inputs
+\draw[->] (3.9,3)--(3.9,2.4);
+\node[above] at (3.9,3) {S1};
+
+\draw[->] (4.8,3)--(4.8,2.4);
+\node[above] at (4.8,3) {S0};
+
+
+% output Y
+\draw[->] (5.2,1.2)--(6.3,1.2);
+\node[right] at (6.3,1.2) {Y};
+
+\end{tikzpicture}
 \end{center}
 }
 \\
@@ -1839,6 +2911,8 @@ The output of this program is \underline{\hspace{2cm}}. \textit{(answer in integ
 \vspace{0.3cm}
 
 \textit{Note: Assume that the program compiles and runs successfully.}
+
+\vspace{0.35cm}
 }
 \\
 \hline
@@ -1887,6 +2961,8 @@ The maximum possible value that can be returned from this function is \underline
 Q.62 &
 \parbox[t]{\linewidth}{
 The determinant of a $4 \times 4$ matrix $A$ is 3. The value of the determinant of $2A$ is \underline{\hspace{2cm}}. \textit{(answer in integer)}
+
+\vspace{0.35cm}
 }
 \\
 \hline
@@ -1903,6 +2979,8 @@ Suppose an unbiased coin is tossed 6 times. Each coin toss is independent of all
 \vspace{0.3cm}
 
 The conditional probability $P(E_1|E_2)$ is equal to \underline{\hspace{2cm}}. \textit{(rounded off to one decimal place)}
+
+\vspace{0.35cm}
 }
 \\
 \hline
@@ -1924,6 +3002,8 @@ For a real number $r \in (0,1)$, $f(r)=1$ if the second digit after the decimal 
 \vspace{0.2cm}
 
 The number of points in $(0,1)$ at which $f$ is discontinuous is \underline{\hspace{2cm}}. \textit{(answer in integer)}
+
+\vspace{0.35cm}
 }
 \\
 \hline
